@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -24,7 +26,7 @@ public class ClienteController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salver(@RequestBody Cliente cliente){
+    public Cliente salver(@RequestBody @Valid Cliente cliente){
     return repository.save(cliente);
     }
     @GetMapping("{id}")
@@ -46,7 +48,7 @@ public class ClienteController {
     }
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void atualizar(@PathVariable Integer id, @RequestBody Cliente clienteAtualizado){
+    public void atualizar(@PathVariable Integer id, @RequestBody @Valid  Cliente clienteAtualizado){
         repository
                 .findById(id)
                 .map(cliente -> {
